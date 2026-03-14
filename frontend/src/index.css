@@ -1,0 +1,355 @@
+/* ── Design Tokens ──────────────────────────────────────────────────────── */
+:root {
+  --bg:         #0D1117;
+  --surface:    #161B22;
+  --surface-2:  #21262D;
+  --border:     #30363D;
+  --text:       #E6EDF3;
+  --text-muted: #8B949E;
+  --blue:       #388BFD;
+  --green:      #3FB950;
+  --amber:      #D29922;
+  --red:        #F85149;
+
+  --radius:     6px;
+  --radius-sm:  4px;
+  --transition: 150ms ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  height: 100vh;
+  overflow: hidden;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── App Layout ─────────────────────────────────────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Stats Bar ──────────────────────────────────────────────────────────── */
+
+.stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 48px;
+  padding: 0 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.stats-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.stats-logo-icon { font-size: 1.2rem; }
+.stats-logo-text { color: var(--text); }
+
+.stats-items {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+}
+
+.stat-item {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+.stat-value { font-size: 1.1rem; font-weight: 700; }
+.stat-label { font-size: 0.75rem; color: var(--text-muted); }
+
+.ws-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+}
+
+.ws-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.ws-connected .ws-dot { background: var(--green); }
+.ws-disconnected .ws-dot { background: var(--red); }
+.ws-connected .ws-label { color: var(--green); }
+.ws-disconnected .ws-label { color: var(--red); }
+
+/* ── Kanban Board ───────────────────────────────────────────────────────── */
+
+.kanban-board {
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  gap: 0;
+  padding: 16px;
+  gap: 12px;
+}
+
+.kanban-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 240px;
+  max-width: 240px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.column-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.column-count {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--surface);
+  color: var(--text-muted);
+  padding: 1px 7px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.column-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* ── Project Card ───────────────────────────────────────────────────────── */
+
+.project-card,
+.feature-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: border-color var(--transition);
+  user-select: none;
+}
+.project-card:hover,
+.feature-card:hover {
+  border-color: var(--blue);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.card-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.error-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  padding: 0 5px;
+  flex-shrink: 0;
+}
+
+.card-repo {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.card-time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.card-deploy-chip {
+  font-size: 0.7rem;
+  padding: 1px 7px;
+  background: rgba(63, 185, 80, 0.15);
+  color: var(--green);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(63, 185, 80, 0.3);
+  text-decoration: none;
+}
+.card-deploy-chip:hover { text-decoration: none; background: rgba(63, 185, 80, 0.25); }
+
+.card-issue-link {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.card-issue-link:hover { color: var(--blue); text-decoration: none; }
+
+/* ── Feature Card extras ────────────────────────────────────────────────── */
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.feature-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+}
+
+.feature-icon { font-size: 0.85rem; flex-shrink: 0; }
+
+.feature-label { color: var(--text); }
+
+.feature-phase {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+/* ── Project Detail Panel ───────────────────────────────────────────────── */
+
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.detail-panel {
+  width: 400px;
+  height: 100vh;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+}
+
+.detail-header h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.detail-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 1rem;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+}
+.detail-close:hover { color: var(--text); background: var(--surface-2); }
+
+.detail-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.detail-value { font-size: 0.88rem; color: var(--text); }
+.detail-link { font-size: 0.88rem; }
+
+.status-chip {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  font-size: 0.78rem;
+  font-family: monospace;
+}
