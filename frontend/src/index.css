@@ -353,3 +353,198 @@ a:hover { text-decoration: underline; }
   font-size: 0.78rem;
   font-family: monospace;
 }
+
+/* ── ProjectDetail (enhanced) ───────────────────────────────────────────── */
+
+.detail-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 1;
+}
+
+.detail-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.detail-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-header-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.detail-link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: border-color var(--transition), color var(--transition);
+}
+.detail-link-chip:hover { border-color: var(--blue); color: var(--text); text-decoration: none; }
+.detail-link-chip.detail-deploy { color: var(--green); border-color: rgba(63,185,80,0.3); }
+.detail-link-chip.detail-deploy:hover { border-color: var(--green); }
+
+.detail-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.detail-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.detail-loading,
+.detail-error {
+  font-size: 0.82rem;
+  padding: 8px;
+  color: var(--text-muted);
+}
+.detail-error { color: var(--red); }
+
+/* ── Sections ────────────────────────────────────────────────────────────── */
+
+.detail-section {
+  padding-top: 4px;
+}
+
+.detail-section-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* ── Stage Timeline ─────────────────────────────────────────────────────── */
+
+.stage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stage-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+}
+
+.stage-done  { background: rgba(63, 185, 80, 0.06); }
+.stage-active { background: rgba(56, 139, 253, 0.1); border: 1px solid rgba(56,139,253,0.25); }
+.stage-pending { opacity: 0.45; }
+
+.stage-icon { font-size: 0.9rem; flex-shrink: 0; }
+
+.stage-label { flex: 1; color: var(--text); }
+
+.stage-current-badge {
+  font-size: 0.7rem;
+  padding: 1px 7px;
+  background: rgba(56,139,253,0.2);
+  color: var(--blue);
+  border-radius: 10px;
+  border: 1px solid rgba(56,139,253,0.35);
+}
+
+/* ── Error Log ──────────────────────────────────────────────────────────── */
+
+.error-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.error-card {
+  background: rgba(248, 81, 73, 0.06);
+  border: 1px solid rgba(248, 81, 73, 0.2);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.error-phase {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.error-message {
+  font-size: 0.8rem;
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  color: var(--text);
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.error-recovery {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+  word-break: break-word;
+}
+
+.error-timestamp {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Design Block ───────────────────────────────────────────────────────── */
+
+.design-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.design-status {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--amber);
+  width: fit-content;
+}
+
+.design-reason {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+}

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { ProjectSummary, PipelineState, DeployRegistry } from './types';
+import { ProjectSummary, ProjectDetail, PipelineState, DeployRegistry } from './types';
 
 const WORKSPACE = process.env.KARAKURI_WORKSPACE ?? '';
 
@@ -87,7 +87,7 @@ export function readAllProjects(): ProjectSummary[] {
   return projects;
 }
 
-export function readProject(name: string): ProjectSummary | null {
+export function readProject(name: string): ProjectDetail | null {
   const stateFile = path.join(getStateDir(), name, 'pipeline-state.json');
   if (!fs.existsSync(stateFile)) return null;
 
@@ -95,7 +95,13 @@ export function readProject(name: string): ProjectSummary | null {
   if (!state) return null;
 
   const registry = readJsonSafe<DeployRegistry>(getRegistryPath()) ?? {};
-  return normalizeProject(name, state, registry);
+  const summary = normalizeProject(name, state, registry);
+
+  return {
+    ...summary,
+    errors: Array.isArray(state.errors) ? state.errors : [],
+    design: state.design,
+  };
 }
 
 export function getStateGlob(): string {
