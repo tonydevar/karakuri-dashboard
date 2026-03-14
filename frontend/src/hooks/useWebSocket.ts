@@ -12,7 +12,7 @@ export function useWebSocket(onMessage: Handler): void {
 
   const connect = useCallback(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const url = `${protocol}//${window.location.host}`;
+    const url = `${protocol}//${window.location.host}/ws`;
     const ws = new WebSocket(url);
     wsRef.current = ws;
 
