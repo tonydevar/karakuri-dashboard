@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ProjectSummary, ProjectDetail as ProjectDetailType } from '../types';
 import { formatProjectName, timeAgo, statusToColumn } from '../utils';
+import { LogPanel } from './LogPanel';
 
 // The 9 pipeline stages in order
 const STAGES = [
@@ -18,9 +19,10 @@ const STAGES = [
 interface Props {
   project: ProjectSummary;
   onClose: () => void;
+  newLogLines?: string[];
 }
 
-export function ProjectDetail({ project, onClose }: Props) {
+export function ProjectDetail({ project, onClose, newLogLines = [] }: Props) {
   const [detail, setDetail] = useState<ProjectDetailType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -173,6 +175,9 @@ export function ProjectDetail({ project, onClose }: Props) {
             </section>
           )}
         </div>
+
+        {/* ── Live Log Panel ──────────────────────────────────── */}
+        <LogPanel newLines={newLogLines} />
       </div>
     </div>
   );

@@ -9,6 +9,8 @@ export default function App() {
   const [projects, setProjects] = useState<ProjectSummary[]>([]);
   const [selected, setSelected] = useState<ProjectSummary | null>(null);
   const [wsConnected, setWsConnected] = useState(false);
+  // Accumulate streaming log lines from WebSocket
+  const [wsLogLines, setWsLogLines] = useState<string[]>([]);
 
   const handleMessage = useCallback((msg: WsMessage) => {
     setWsConnected(true);
@@ -28,6 +30,9 @@ export default function App() {
       setSelected(prev =>
         prev && msg.project && prev.name === msg.project.name ? msg.project : prev
       );
+    } else if (msg.type === 'log_lines' && msg.lines && msg.lines.length > 0) {
+      // Forward new log lines to any open LogPanel
+      setWsLogLines(msg.lines);
     }
   }, []);
 
@@ -38,7 +43,11 @@ export default function App() {
       <StatsBar projects={projects} wsConnected={wsConnected} />
       <KanbanBoard projects={projects} onSelectProject={setSelected} />
       {selected && (
-        <ProjectDetail project={selected} onClose={() => setSelected(null)} />
+        <ProjectDetail
+          project={selected}
+          onClose={() => setSelected(null)}
+          newLogLines={wsLogLines}
+        />
       )}
     </div>
   );
