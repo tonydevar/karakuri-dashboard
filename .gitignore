@@ -1,46 +1,21 @@
-# Environment & Secrets
+# Secrets
 .env
 .env.local
-.env.*.local
-.env.production
-.env.development
-.env.test
-*.key
-*.pem
-secrets/
-.secrets/
+*.env
 
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Dependencies
+# Node
 node_modules/
-vendor/
-venv/
-__pycache__/
+backend/node_modules/
+frontend/node_modules/
 
-# Build
-dist/
-build/
-.next/
-.nuxt/
-coverage/
+# Build output
+backend/dist/
+frontend/dist/
 
-# Logs
-logs/
-*.log
-npm-debug.log*
+# DB / runtime files
+*.db
+*.db-shm
+*.db-wal
 
 # OS
 .DS_Store
-Thumbs.db
-
-# Temporary
-tmp/
-temp/
-.cache/
