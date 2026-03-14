@@ -28,11 +28,17 @@ function readJsonSafe<T>(filePath: string): T | null {
 function normalizeProject(name: string, state: PipelineState, registry: DeployRegistry): ProjectSummary {
   const deploy = registry[name];
 
-  // Compute completed features from state.features map
+  // Compute completed features — prefer modern completed_features[] field,
+  // fall back to legacy state.features object map
   const completedFeatures: number[] = [];
   let currentFeature: { number: number; phase: string } | undefined;
 
-  if (state.features) {
+  if (state.completed_features && Array.isArray(state.completed_features)) {
+    // Modern state files: completed_features is a number[] e.g. [1, 2, 3, 4]
+    completedFeatures.push(...state.completed_features);
+    completedFeatures.sort((a, b) => a - b);
+  } else if (state.features) {
+    // Legacy state files: features is Record<string, {status, phase?, ...}>
     for (const [key, feat] of Object.entries(state.features)) {
       const num = parseInt(key.replace(/\D/g, ''), 10);
       if (isNaN(num)) continue;
